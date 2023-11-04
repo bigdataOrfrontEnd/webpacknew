@@ -1,19 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuleFederationPlugin } = require("webpack").container; // 还可以这样
-// webpack 插件配置
 module.exports = {
-  mode: "development",
   entry: "./src/index.ts",
-  devtool: "inline-source-map",
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-  devServer: {
-    static: "./dist",
-    hot: true,
-    port: 8080,
+    filename: "bundle.js", //打包好的js名称
+    path: path.resolve(__dirname, "./dist"),
+    library: "TEST", // 为你的库指定一个全局变量名
+    libraryTarget: "umd", // 将你的库以 UMD 格式导出
+    clean: true,
   },
   module: {
     rules: [
@@ -28,7 +22,7 @@ module.exports = {
         },
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -48,6 +42,14 @@ module.exports = {
         type: "asset/resource",
       },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json", ".jsx"],
+  },
+  mode: "production",
+  devtool: "inline-source-map",
+  devServer: {
+    static: "./dist",
   },
   plugins: [
     new HtmlWebpackPlugin({
