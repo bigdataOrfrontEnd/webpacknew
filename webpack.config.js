@@ -5,7 +5,7 @@ module.exports = {
   output: {
     filename: "bundle.js", //打包好的js名称
     path: path.resolve(__dirname, "./dist"),
-    library: "TEST", // 为你的库指定一个全局变量名
+    library: "MiniSingleSPA", // 为你的库指定一个全局变量名
     libraryTarget: "umd", // 将你的库以 UMD 格式导出
     clean: true,
   },
